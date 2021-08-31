@@ -33,6 +33,7 @@ n2 = 5
 n2 = 7
 n4 = 9
 n5 = 11
+n6 = 13
 
 #Para a primeira base
 
@@ -41,3 +42,4 @@ knn(n2,X_train_1, Y_train_1, X_test_1, Y_test_1)
 knn(n3,X_train_1, Y_train_1, X_test_1, Y_test_1)
 knn(n4,X_train_1, Y_train_1, X_test_1, Y_test_1)
 knn(n5,X_train_1, Y_train_1, X_test_1, Y_test_1)
+knn(n6,X_train_1, Y_train_1, X_test_1, Y_test_1)
