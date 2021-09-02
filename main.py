@@ -1,5 +1,6 @@
 from KNN import KNN_Bases
 from decisionTreeGini import Gini
+from decisionTreeEntropy import Entropy
 
 while True:
     print("Projeto 1 da disciplina de Machine Learning")
@@ -25,4 +26,5 @@ while True:
     elif(num == 2):
         Gini()
         
-    elif(num == 3):    
+    elif(num == 3):   
+        Entropy()
