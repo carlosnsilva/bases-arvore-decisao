@@ -9,9 +9,11 @@ def Entropy():
     base = "./bases/car.data"
 
     dataset = pds.read_csv(base, header=None)
-
-    X = dataset.loc[:, 0:columns-2]
-    Y = dataset.loc[:, columns-1]
+    
+    columns = len(dataset.columns)
+    
+    X = dataset.loc[:, 1:columns-1]
+    Y = dataset[0]
 
 
     # 20% teste e 80% treinamento
