@@ -1,7 +1,8 @@
-from sklearn import metrics
+from sklearn import tree
 from sklearn.model_selection import train_test_split
+from sklearn import metrics
 import pandas as pds
-from sklearn.neighbors import KNeighborsClassifier
+#from sklearn.neighbors import KNeighborsClassifier
 
 def Gini():
 
@@ -9,8 +10,10 @@ def Gini():
 
     dataset = pds.read_csv(base, header=None)
 
+    columns = len(dataset.columns)
+
     X = dataset.loc[:, 0:columns-2]
-    Y = dataset.loc[:, columns-1]
+    Y = dataset.loc[0]
 
 
     # 20% teste e 80% treinamento

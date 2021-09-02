@@ -25,4 +25,4 @@ while True:
     elif(num == 2):
         Gini()
         
-    elif(num == 3):    
+    #elif(num == 3):    
