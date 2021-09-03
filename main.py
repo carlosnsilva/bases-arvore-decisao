@@ -16,15 +16,23 @@ while True:
     elif(num == 1):
         n = int(input("Digite quantas vezes deseja testar o KNN: "))
         for i in range(n):
-            
+            print("Bases: wine ou balance")    
+            print("Metricas: euclidean, manhattan, minkowski\n")
+
             k = int(input("Digite o valor desejado para o k: "))
-            base = input("Digite a base que deseja executar: ")
             metric = input("Digite a metrica que deseja utilizar: ")
+            base = input("Digite a base que deseja executar: ")
             
             KNN_Bases(k,metric,base)
 
     elif(num == 2):
-        Gini()
+        print("Bases: wine ou balance")
+        base = input("Digite o nome da base: ")
         
-    elif(num == 3):   
-        Entropy()
+        Gini(base)
+        
+    elif(num == 3):
+        print("Bases: wine ou balance")
+        base = input("Digite o nome da base: ")
+        Entropy(base)
+

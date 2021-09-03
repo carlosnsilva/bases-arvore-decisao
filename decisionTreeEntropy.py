@@ -4,11 +4,22 @@ from sklearn.model_selection import train_test_split
 import pandas as pds
 from sklearn.neighbors import KNeighborsClassifier
 
-def Entropy():
+def Entropy(base_name):
 
-    # base = './bases/' + database + '.data'
-    base = './bases/balance-scale.data'
+    if(base_name == 'wine'):
+        nome = "WINE"
+        base = "./bases/wine.data"
+        TreeEntropy(base,nome)
+    elif(base_name == 'balance'):
+        nome = "BALANCE"
+        base = "./bases/balance-scale.data"
+        TreeEntropy(base,nome)
+    else:
+        print("A base não foi encontrada!!!\n")
+        return  
 
+    
+def TreeEntropy(base,nome):
     dataset = pds.read_csv(base, header=None)
     
 
@@ -32,8 +43,7 @@ def Entropy():
     result_final = metrics.accuracy_score(resultado, Y_test)
 
     final = round(result_final * 100)
-    print('Base balance-scale')
-
-    print("{}%".format(final))
+    
+    print("Resultado na base {}: {}%\n".format(nome,final))
     
     return 

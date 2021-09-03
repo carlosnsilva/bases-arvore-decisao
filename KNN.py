@@ -1,46 +1,45 @@
-from sklearn import metrics
 from sklearn.model_selection import train_test_split
+from sklearn import metrics
 import pandas as pds
 from sklearn.neighbors import KNeighborsClassifier
 
-def KNN_Bases(k, metrics, base):
+def KNN_Bases(k, metrica, base_name):
 
-    if(base =='car'):
-        base_1_url = './bases/car.data'
+    if(base_name =='balance'):
+        nome = 'BALANCE'
+        base_1_url = './bases/balance-scale.data'
+        KNN_Generator(base_1_url,nome,k,metrica)
+    elif(base_name == 'wine'):
+        nome = 'WINE'
+        base_2_url = "./bases/wine.data"
+        KNN_Generator(base_2_url,nome,k,metrica)
+    else:
+        print("A base não foi encontrada!!!\n")
+        return       
 
-        dataset_base_1 = pds.read_csv(base_1_url, header=None)
 
-        x_base_1 = dataset_base_1.loc[:, 0:columns-2]
-        y_base_1 = dataset_base_1.loc[:, columns-1]
+def KNN_Generator(base,nome, k, metrica):
+        dataset = pds.read_csv(base, header=None)
 
-        X_train_1, X_test_1, Y_train_1, Y_test_1 = train_test_split(x_base_1, y_base_1, test_size=0.2, random_state=None, stratify=y_base_1)
+        index_Y = 0
+        index_inicial = 1
+        index_final = len(dataset.columns)
 
-        model = KNeighborsClassifier(n_neighbors=k, metrics=metrics, algorithm='brute')
 
-        model = model.fit(X_train_1, Y_train_1)
+        y = dataset[index_Y] # extrai a primeira coluna, que é o label
+        X = dataset.loc[:,index_inicial:index_final-1]
 
-        resultado = model.predict(X_test_1)
-        acc = metrics.accuracy_score(resultado, Y_test_1)
-        result = round(acc * 100)
-        print("Base car: {}%".format(result))
-        
-        return
+        # 20% teste e 80% treinamento
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=None, stratify=y) # 80% treino e 20% teste
 
-    elif(base == 'glass'):
-        base_2_url = "./bases/glass.data"
+        model = KNeighborsClassifier(n_neighbors=k, metric=metrica, algorithm='brute')
+        model = model.fit(X_train, y_train)
 
-        dataset_base_2 = pds.read_csv(base_2_url, header=None)
+        result = model.predict(X_test)
 
-        #Para a base 2
-        x_base_2 = dataset_base_1.loc[:, 0:columns-2]
-        y_base_2 = dataset_base_1.loc[:, columns-1]
+        acc = metrics.accuracy_score(result, y_test)
 
-        #Separando para a segunda base
-        X_train_2, X_test_2, Y_train_2, Y_test_2 = train_test_split(x_base_2, y_base_2, test_size=0.2, random_state=None, stratify=y_base_2)
-
-        resultado = model.predict(X_test_2)
-        acc = metrics.accuracy_score(resultado, Y_test_2)
-        result = round(acc * 100)
-        print("Base glass: {}%".format(result))
+        show = round(acc * 100)
+        print("Resultado para a base {} com a metrica {}: {}%\n".format(nome,metrica,show))
         
         return

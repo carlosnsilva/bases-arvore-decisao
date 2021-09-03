@@ -1,17 +1,35 @@
-from sklearn import metrics
+from sklearn import tree
 from sklearn.model_selection import train_test_split
+from sklearn import metrics
 import pandas as pds
-from sklearn.neighbors import KNeighborsClassifier
+#from sklearn.neighbors import KNeighborsClassifier
 
-def Gini():
+def Gini(base_name):
+    
+    if(base_name == 'wine'):
+        nome = "WINE"
+        base = "./bases/wine.data"
+        TreeGini(base,nome)
+    elif(base_name == 'balance'):
+        nome = "BALANCE"
+        base = "./bases/balance-scale.data"
+        TreeGini(base,nome)
+    else:
+        print("A base não foi encontrada!!!\n")
+        return     
 
-    base = "./bases/car.data"
 
+
+def TreeGini(base,nome):
     dataset = pds.read_csv(base, header=None)
+    
 
-    X = dataset.loc[:, 0:columns-2]
-    Y = dataset.loc[:, columns-1]
+    index_Y = 0
+    index_inicial = 1
+    index_final = len(dataset)
 
+    Y = dataset[index_Y]
+    X = dataset.loc[:,index_inicial:index_final]
 
     # 20% teste e 80% treinamento
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=None, stratify=Y)
@@ -27,6 +45,8 @@ def Gini():
 
     final = round(result_final * 100)
 
-    print("{}%".format(final))
+    print("Resultado na base {}: {}% \n".format(nome,final))
+
     
-    return 
+    return
+
