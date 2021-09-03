@@ -1,26 +1,25 @@
 from sklearn import tree
-from sklearn.model_selection import train_test_split
 from sklearn import metrics
+from sklearn.model_selection import train_test_split
 import pandas as pds
-#from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import KNeighborsClassifier
 
-def Gini(base_name):
-    
+def Entropy(base_name):
+
     if(base_name == 'wine'):
         nome = "WINE"
         base = "./bases/wine.data"
-        TreeGini(base,nome)
+        TreeEntropy(base,nome)
     elif(base_name == 'balance'):
         nome = "BALANCE"
         base = "./bases/balance-scale.data"
-        TreeGini(base,nome)
+        TreeEntropy(base,nome)
     else:
         print("A base não foi encontrada!!!\n")
-        return     
+        return  
 
-
-
-def TreeGini(base,nome):
+    
+def TreeEntropy(base,nome):
     dataset = pds.read_csv(base, header=None)
     
 
@@ -36,7 +35,7 @@ def TreeGini(base,nome):
 
     # Treinando a árvore
 
-    model = tree.DecisionTreeClassifier(criterion="gini")
+    model = tree.DecisionTreeClassifier(criterion="entropy")
     model = model.fit(X_train, Y_train)
 
     resultado = model.predict(X_test)
@@ -44,9 +43,7 @@ def TreeGini(base,nome):
     result_final = metrics.accuracy_score(resultado, Y_test)
 
     final = round(result_final * 100)
-
-    print("Resultado na base {}: {}% \n".format(nome,final))
-
     
-    return
-
+    print("Resultado na base {}: {}%\n".format(nome,final))
+    
+    return 
